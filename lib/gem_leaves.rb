@@ -26,7 +26,7 @@ require 'yaml'
 # home directory.
 
 class GemLeaves
-  VERSION = '1.0.0'
+  VERSION = '1.0.1'
 
   def initialize(args)
     @options = {}
@@ -49,7 +49,10 @@ class GemLeaves
     OptionParser.new('Usage: gem_leaves [OPTIONS]') do |p|
       p.separator ''
       p.on('-c', '--config-file=FILE', 'Load the named configuration file') {|v| @options[:config_file] = v}
-      p.on('-g', '--generate-config-file=FILE', "Generate a new configuration file merging the leaves' list with the content of the old configuration file (if any)") {|v| @options[:new_config_file] = v}
+      p.on('-g', '--generate-config-file=FILE',
+        "Generate a new configuration file merging",
+        "the leaves' list with the content of the",
+        "old configuration file (if any)") {|v| @options[:new_config_file] = v}
       p.parse(args)
     end
   end
@@ -63,8 +66,8 @@ class GemLeaves
   # the user.
   def load_config_file
     if @options[:config_file].nil?
-      @configuration = YAML.load_file('.gem_leaves.yml') rescue nil
-      @configuration = YAML.load_file(File.join(find_home, '.gem_leaves.yml')) rescue nil
+      cf = ['.gem_leaves.yml', File.join(find_home, '.gem_leaves.yml')]
+      cf.each {|f| (@configuration = YAML.load_file(f); return) rescue nil}
       @configuration = {'ignore' => {}}
     else
       @configuration = YAML.load_file(@options[:config_file])
@@ -91,7 +94,7 @@ class GemLeaves
     end
   end
 
-  # Looks to the installed gems to find the _leaves_.
+  # Looks at the installed gems to find the _leaves_.
   def find_leaves
     srcindex = Gem::SourceIndex.from_installed_gems
     srcindex = prune(srcindex)
@@ -116,14 +119,10 @@ class GemLeaves
   # Simply puts the list of _leaves_ to STDOUT. It optionally merges the
   # content of the already loaded configuration file with the leaves list.
   def show_leaves
-    if @leaves.empty?
-      puts "No leaves found"
-    else
-      @leaves.sort.each do |leaf|
-        puts "#{leaf.name} (#{leaf.version})"
-        if @options[:new_config_file]
-          @configuration['ignore']["#{leaf.name}"] = "= #{leaf.version}"
-        end
+    @leaves.sort.each do |leaf|
+      puts "#{leaf.name} (#{leaf.version})"
+      if @options[:new_config_file]
+        @configuration['ignore']["#{leaf.name}"] = "= #{leaf.version}"
       end
     end
   end
