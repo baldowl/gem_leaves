@@ -1,3 +1,8 @@
+== 1.0.2 / 2007-12-03
+
+* Now the pruning uses the exact match on the gem's short name (so, ignoring
+  capistrano doesn't mask capistrano-ext too).
+
 == 1.0.1 / 2007-12-01
 
 * No leaves, no output.

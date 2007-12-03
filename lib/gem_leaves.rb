@@ -26,7 +26,7 @@ require 'yaml'
 # home directory.
 
 class GemLeaves
-  VERSION = '1.0.1'
+  VERSION = '1.0.2'
 
   def initialize(args)
     @options = {}
@@ -105,7 +105,7 @@ class GemLeaves
   # and not shown to the user.
   def prune(srcindex)
     @configuration['ignore'].each do |k, v|
-      keep = srcindex.search(k, v)
+      keep = srcindex.find_name(k, v)
       next if keep.nil?
       if keep.respond_to?(:each)
         keep.each {|s| srcindex.remove_spec(s.full_name)}
