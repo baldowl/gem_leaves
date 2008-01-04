@@ -1,2 +1,3 @@
+#!/usr/bin/env ruby
 require 'gem_leaves'
 GemLeaves.new(ARGV).run
