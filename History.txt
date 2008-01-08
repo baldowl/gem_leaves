@@ -1,3 +1,8 @@
+== 1.0.3 / 2008-01-08
+
+* Adios, hoe! Moved to echoe.
+* New output format: DOT diagram.
+
 == 1.0.2 / 2007-12-03
 
 * Now the pruning uses the exact match on the gem's short name (so, ignoring

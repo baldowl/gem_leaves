@@ -26,10 +26,10 @@ require 'yaml'
 # home directory.
 
 class GemLeaves
-  VERSION = '1.0.2'
+  VERSION = '1.0.3'
 
   def initialize(args)
-    @options = {}
+    @options = {:color => "d0ed0e"}
     @configuration = {}
     @leaves = []
     parse_options(args)
@@ -49,10 +49,13 @@ class GemLeaves
     OptionParser.new('Usage: gem_leaves [OPTIONS]') do |p|
       p.separator ''
       p.on('-c', '--config-file=FILE', 'Load the named configuration file') {|v| @options[:config_file] = v}
+      p.on('-C', '--color=COLOR', "Set the leaves' color in the DOT diagram") {|v| @options[:color] = v}
+      p.on('-d', '--diagram', 'Generate a DOT diagram on stdout') {|v| @options[:diagram] = v}
       p.on('-g', '--generate-config-file=FILE',
         "Generate a new configuration file merging",
         "the leaves' list with the content of the",
         "old configuration file (if any)") {|v| @options[:new_config_file] = v}
+      p.on('-r', '--reverse', "Reverse the edges in the DOT diagram") {|v| @options[:reverse] = v}
       p.parse(args)
     end
   end
@@ -97,6 +100,7 @@ class GemLeaves
   # Looks at the installed gems to find the _leaves_.
   def find_leaves
     srcindex = Gem::SourceIndex.from_installed_gems
+    @gems = srcindex.search('.')
     srcindex = prune(srcindex)
     @leaves = srcindex.search('.').select {|s| s.dependent_gems.empty?}
   end
@@ -116,21 +120,55 @@ class GemLeaves
     srcindex
   end
 
-  # Simply puts the list of _leaves_ to STDOUT. It optionally merges the
-  # content of the already loaded configuration file with the leaves list.
+  # Show the leaves using one of the supported output format.
   def show_leaves
-    @leaves.sort.each do |leaf|
-      puts "#{leaf.name} (#{leaf.version})"
-      if @options[:new_config_file]
-        @configuration['ignore']["#{leaf.name}"] = "= #{leaf.version}"
-      end
+    if @options[:diagram]
+      diagrammatical_output
+    else
+      textual_output
     end
   end
 
-  # Writes the new configuration file implicitely built by
-  # <tt>show_leaves</tt>.
+  # Simply puts the list of _leaves_ to STDOUT. It optionally merges the
+  # content of the already loaded configuration file with the leaves list.
+  def textual_output
+    @leaves.sort.each do |leaf|
+      puts "#{leaf.name} (#{leaf.version})"
+    end
+  end
+
+  # Build a DOT diagram of the installed gems, highlighting the leaves with
+  # a customizable color, leaving those gems that *must* be kept according
+  # to the current configuration in the standard color.
+  def diagrammatical_output
+    diagram = "digraph leaves_diagram {\n"
+    @gems.each do |g|
+      if @options[:reverse]
+        g.dependent_gems.each {|d| diagram << %Q(  "#{d[0].full_name}" -> "#{g.full_name}"\n)}
+      else
+        g.dependent_gems.each {|d| diagram << %Q(  "#{g.full_name}" -> "#{d[0].full_name}"\n)}
+      end
+      if g.dependent_gems.empty?
+        str = %Q(  "#{g.full_name}")
+        if @leaves.include?(g)
+          str += %Q( [color="##{@options[:color]}", style=filled]\n)
+        else
+          str += "\n"
+        end
+        diagram << str
+      end
+    end
+    diagram << "}"
+    puts diagram
+  end
+
+  # Writes the new configuration file merging the optionally already loaded
+  # one with the leaves just found.
   def generate_config_file
     if @options[:new_config_file]
+      @leaves.sort.each do |leaf|
+        @configuration['ignore']["#{leaf.name}"] = "= #{leaf.version}"
+      end
       File.open(@options[:new_config_file], 'w') do |out|
         YAML.dump(@configuration, out)
       end
