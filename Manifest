@@ -1,5 +1,6 @@
-lib/gem_leaves.rb
 bin/gem_leaves
 History.txt
+lib/gem_leaves.rb
+Manifest
+Rakefile
 README.txt
-Manifest.txt
