@@ -1,4 +1,5 @@
 bin/gem_leaves
+gem_leaves.gemspec
 History.txt
 lib/gem_leaves.rb
 Manifest

@@ -7,4 +7,5 @@ Echoe.new('gem_leaves', GemLeaves::VERSION) do |p|
   p.summary = 'A dumb tool to list removable gems.'
   p.need_tar_gz = false
   p.project = nil
+  p.development_dependencies = []
 end
