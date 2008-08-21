@@ -1,9 +1,9 @@
-GemLeaves
+gem_leaves
     by Gufo Pelato
 
 == DESCRIPTION:
   
-GemLeaves is a rather dumb tool which lists the _leaves_ of your system. I
+gem_leaves is a rather dumb tool which lists the _leaves_ of your system. I
 call _leaves_ the gems with no reverse dependency which can be safely
 removed without breaking anything.
 
@@ -27,7 +27,7 @@ For options' list see output of
 
 == INSTALL:
 
-  $ sudo gem install GemLeaves
+  $ sudo gem install gem_leaves
 
 == LICENSE:
 
