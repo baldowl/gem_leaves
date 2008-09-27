@@ -26,7 +26,7 @@ require 'yaml'
 # home directory.
 
 class GemLeaves
-  VERSION = '1.0.3'
+  VERSION = '1.0.4'
 
   def initialize(args)
     @options = {:color => "d0ed0e"}
@@ -99,10 +99,11 @@ class GemLeaves
 
   # Looks at the installed gems to find the _leaves_.
   def find_leaves
+    root = Gem::Dependency.new //, Gem::Requirement.default
     srcindex = Gem::SourceIndex.from_installed_gems
-    @gems = srcindex.search('.')
+    @gems = srcindex.search root
     srcindex = prune(srcindex)
-    @leaves = srcindex.search('.').select {|s| s.dependent_gems.empty?}
+    @leaves = srcindex.search(root).select {|s| s.dependent_gems.empty?}
   end
 
   # Remove from the list of installed gems those gems that *must* be kept

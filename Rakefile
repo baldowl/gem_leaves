@@ -8,4 +8,5 @@ Echoe.new('gem_leaves', GemLeaves::VERSION) do |p|
   p.need_tar_gz = false
   p.project = nil
   p.development_dependencies = []
+  p.rubygems_version = '>= 1.2'
 end
