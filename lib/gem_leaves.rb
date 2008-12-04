@@ -56,6 +56,7 @@ class GemLeaves
         "the leaves' list with the content of the",
         "old configuration file (if any)") {|v| @options[:new_config_file] = v}
       p.on('-i', '--ignore', 'Ignore every configuration file') {|v| @options[:ignore] = v}
+      p.on('-p', '--pipe', 'Pipe Format (name --version ver)') {|v| @options[:pipe] = v}
       p.on('-r', '--reverse', "Reverse the edges in the DOT diagram") {|v| @options[:reverse] = v}
       p.parse(args)
     end
@@ -130,8 +131,18 @@ class GemLeaves
   def show_leaves
     if @options[:diagram]
       diagrammatical_output
+    elsif @options[:pipe]
+      pipe_output
     else
       textual_output
+    end
+  end
+
+  # Simply puts the list of _leaves_ to STDOUT in a format suitable to pipe it
+  # to RubyGems.
+  def pipe_output
+    @leaves.sort.each do |leaf|
+      puts "#{leaf.name} --version #{leaf.version}"
     end
   end
 
