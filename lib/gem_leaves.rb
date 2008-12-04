@@ -55,6 +55,7 @@ class GemLeaves
         "Generate a new configuration file merging",
         "the leaves' list with the content of the",
         "old configuration file (if any)") {|v| @options[:new_config_file] = v}
+      p.on('-i', '--ignore', 'Ignore every configuration file') {|v| @options[:ignore] = v}
       p.on('-r', '--reverse', "Reverse the edges in the DOT diagram") {|v| @options[:reverse] = v}
       p.parse(args)
     end
@@ -68,12 +69,16 @@ class GemLeaves
   # Optionally load a specific configuration file whose name has been set by
   # the user.
   def load_config_file
-    if @options[:config_file].nil?
-      cf = ['.gem_leaves.yml', File.join(find_home, '.gem_leaves.yml')]
-      cf.each {|f| (@configuration = YAML.load_file(f); return) rescue nil}
+    if @options[:ignore]
       @configuration = {'ignore' => {}}
     else
-      @configuration = YAML.load_file(@options[:config_file])
+      if @options[:config_file].nil?
+        cf = ['.gem_leaves.yml', File.join(find_home, '.gem_leaves.yml')]
+        cf.each {|f| (@configuration = YAML.load_file(f); return) rescue nil}
+        @configuration = {'ignore' => {}}
+      else
+        @configuration = YAML.load_file(@options[:config_file])
+      end
     end
   end
 
