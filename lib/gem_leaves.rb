@@ -26,7 +26,7 @@ require 'yaml'
 # home directory.
 
 class GemLeaves
-  VERSION = '1.0.4'
+  VERSION = '1.0.5'
 
   def initialize(args)
     @options = {:color => "d0ed0e"}
