@@ -1,14 +1,14 @@
 --- !ruby/object:Gem::Specification 
 name: gem_leaves
 version: !ruby/object:Gem::Version 
-  version: 1.0.5
+  version: 1.0.6
 platform: ruby
 authors: 
 - Gufo Pelato
 autorequire: 
 bindir: bin
 
-date: 2008-12-07 00:00:00 +01:00
+date: 2009-01-05 00:00:00 +01:00
 default_executable: 
 dependencies: 
 - !ruby/object:Gem::Dependency 
@@ -28,8 +28,6 @@ executables:
 extensions: []
 
 extra_rdoc_files: 
-- bin/gem_leaves
-- lib/gem_leaves.rb
 - README.txt
 files: 
 - bin/gem_leaves
@@ -40,7 +38,7 @@ files:
 - Rakefile
 - README.txt
 has_rdoc: true
-homepage: ""
+homepage: http://github.com/baldowl/gem_leaves
 post_install_message: 
 rdoc_options: 
 - --line-numbers
@@ -65,7 +63,7 @@ required_rubygems_version: !ruby/object:Gem::Requirement
   version: 
 requirements: []
 
-rubyforge_project: 
+rubyforge_project: gemleaves
 rubygems_version: 1.3.1
 specification_version: 2
 summary: A dumb tool to list removable gems.
