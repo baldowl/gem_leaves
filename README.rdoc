@@ -1,0 +1,41 @@
+= GemLeaves
+
+gem_leaves is a rather dumb tool which lists the _leaves_ of your system. I
+call _leaves_ the gems with no reverse dependency which can be safely removed
+without breaking anything.
+
+== FEATURES/PROBLEMS:
+  
+* User can customize the tool's behaviour with a simple, YAML configuration
+  file.
+* The tool can generate/regenerate its own configuration file.
+
+== SYNOPSIS:
+
+  $ gem_leaves
+
+For options' list see output of
+
+  $ gem_leaves -h
+
+== REQUIREMENTS:
+
+* RubyGems
+
+== INSTALL:
+
+  $ sudo gem install gem_leaves
+
+== Contributing
+
+If you want to help:
+
+* fork the project[http://github.com/baldowl/gem_leaves] on GitHub;
+* work in a topic branch;
+* add features/specs for your additions or bug fixes;
+* write your additions/bug fixes;
+* commit;
+* send me a pull request for the topic branch.
+
+If you have any issue, please post them on the {project's issue
+list}[http://github.com/baldowl/gem_leaves] on GitHub.
