@@ -106,7 +106,7 @@ class GemLeaves
   # Looks at the installed gems to find the _leaves_.
   def find_leaves
     root = Gem::Dependency.new //, Gem::Requirement.default
-    srcindex = Gem::SourceIndex.from_installed_gems
+    srcindex = Gem::SourceIndex.new(Gem::SourceIndex.installed_spec_directories)
     @gems = srcindex.search root
     srcindex = prune(srcindex)
     @leaves = srcindex.search(root).select {|s| s.dependent_gems.empty?}

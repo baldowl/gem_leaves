@@ -22,6 +22,7 @@ Jeweler::Tasks.new do |gem|
   gem.rubyforge_project = 'gemleaves'
   gem.add_development_dependency 'cucumber', '>= 0.1.13'
   gem.add_development_dependency 'rspec'
+  gem.required_rubygems_version = '>= 1.7.0'
   gem.rdoc_options << '--line-numbers' << '--inline-source' << '--title' <<
     "GemLeaves #{version}" << '--main' << 'README.rdoc'
   gem.test_files.clear
