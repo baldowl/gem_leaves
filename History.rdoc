@@ -1,6 +1,8 @@
-== ?.?.? / 200?-??-??
+== 1.0.7 / 2011-04-04
 
 * Adios, echoe! Moved to Jeweler.
+* Fixed a deprecation warning with the Rubygems > 1.7
+* Upped the required Rubygems version.
 
 == 1.0.6 / 2009-01-05
 
