@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{gem_leaves}
-  s.version = "1.0.8"
+  s.version = "1.0.9"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 1.8.0") if s.respond_to? :required_rubygems_version=
   s.authors = [%q{Gufo Pelato}]
@@ -29,7 +29,7 @@ Gem::Specification.new do |s|
   ]
   s.homepage = %q{http://github.com/baldowl/gem_leaves}
   s.licenses = [%q{MIT}]
-  s.rdoc_options = [%q{--line-numbers}, %q{--inline-source}, %q{--title}, %q{GemLeaves 1.0.8}, %q{--main}, %q{README.rdoc}]
+  s.rdoc_options = [%q{--line-numbers}, %q{--inline-source}, %q{--title}, %q{GemLeaves 1.0.9}, %q{--main}, %q{README.rdoc}]
   s.require_paths = [%q{lib}]
   s.rubyforge_project = %q{gemleaves}
   s.rubygems_version = %q{1.8.0}
