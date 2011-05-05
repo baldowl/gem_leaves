@@ -105,26 +105,10 @@ class GemLeaves
 
   # Looks at the installed gems to find the _leaves_.
   def find_leaves
-    root = Gem::Dependency.new //, Gem::Requirement.default
-    srcindex = Gem::SourceIndex.new(Gem::SourceIndex.installed_spec_directories)
-    @gems = srcindex.search root
-    srcindex = prune(srcindex)
-    @leaves = srcindex.search(root).select {|s| s.dependent_gems.empty?}
-  end
-
-  # Remove from the list of installed gems those gems that *must* be kept
-  # and not shown to the user.
-  def prune(srcindex)
-    @configuration['ignore'].each do |k, v|
-      keep = srcindex.find_name(k, v)
-      next if keep.nil?
-      if keep.respond_to?(:each)
-        keep.each {|s| srcindex.remove_spec(s.full_name)}
-      else
-        srcindex.remove_spec(keep.full_name)
-      end
-    end
-    srcindex
+    ignorable = @configuration['ignore'].map do |k, v|
+      Gem::Specification.find_all_by_name k, v
+    end.flatten
+    @leaves = Gem::Specification.select {|s| s.dependent_gems.empty?} - ignorable
   end
 
   # Show the leaves using one of the supported output format.
@@ -159,7 +143,7 @@ class GemLeaves
   # to the current configuration in the standard color.
   def diagrammatical_output
     diagram = "digraph leaves_diagram {\n"
-    @gems.each do |g|
+    Gem::Specification.all.each do |g|
       if @options[:reverse]
         g.dependent_gems.each {|d| diagram << %Q(  "#{d[0].full_name}" -> "#{g.full_name}"\n)}
       else
