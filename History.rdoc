@@ -1,3 +1,7 @@
+== 1.0.9 / 2011-05-05
+
+* Fixed the mess I did while playing with Git's branches.
+
 == 1.0.8 / 2011-05-05
 
 * Fixed deprecation warnings with RubyGems 1.8.0
