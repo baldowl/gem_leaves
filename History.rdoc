@@ -1,3 +1,8 @@
+== 1.0.8 / 2011-05-05
+
+* Fixed deprecation warnings with RubyGems 1.8.0
+* Upped the required RubyGems version.
+
 == 1.0.7 / 2011-04-04
 
 * Adios, echoe! Moved to Jeweler.
