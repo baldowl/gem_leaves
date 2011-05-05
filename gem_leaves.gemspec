@@ -5,14 +5,14 @@
 
 Gem::Specification.new do |s|
   s.name = %q{gem_leaves}
-  s.version = "1.0.7"
+  s.version = "1.0.8"
 
-  s.required_rubygems_version = Gem::Requirement.new(">= 1.7.0") if s.respond_to? :required_rubygems_version=
-  s.authors = ["Gufo Pelato"]
-  s.date = %q{2011-04-04}
+  s.required_rubygems_version = Gem::Requirement.new(">= 1.8.0") if s.respond_to? :required_rubygems_version=
+  s.authors = [%q{Gufo Pelato}]
+  s.date = %q{2011-05-05}
   s.description = %q{A dumb tool to list removable gems}
   s.email = %q{gufo.pelato@gmail.com}
-  s.executables = ["gem_leaves"]
+  s.executables = [%q{gem_leaves}]
   s.extra_rdoc_files = [
     "LICENSE.rdoc",
     "README.rdoc"
@@ -28,26 +28,20 @@ Gem::Specification.new do |s|
     "lib/gem_leaves.rb"
   ]
   s.homepage = %q{http://github.com/baldowl/gem_leaves}
-  s.licenses = ["MIT"]
-  s.rdoc_options = ["--line-numbers", "--inline-source", "--title", "GemLeaves 1.0.7", "--main", "README.rdoc"]
-  s.require_paths = ["lib"]
+  s.licenses = [%q{MIT}]
+  s.rdoc_options = [%q{--line-numbers}, %q{--inline-source}, %q{--title}, %q{GemLeaves 1.0.8}, %q{--main}, %q{README.rdoc}]
+  s.require_paths = [%q{lib}]
   s.rubyforge_project = %q{gemleaves}
-  s.rubygems_version = %q{1.7.1}
+  s.rubygems_version = %q{1.8.0}
   s.summary = %q{A dumb tool to list removable gems}
 
   if s.respond_to? :specification_version then
     s.specification_version = 3
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
-      s.add_development_dependency(%q<cucumber>, [">= 0.1.13"])
-      s.add_development_dependency(%q<rspec>, [">= 0"])
     else
-      s.add_dependency(%q<cucumber>, [">= 0.1.13"])
-      s.add_dependency(%q<rspec>, [">= 0"])
     end
   else
-    s.add_dependency(%q<cucumber>, [">= 0.1.13"])
-    s.add_dependency(%q<rspec>, [">= 0"])
   end
 end
 
